@@ -808,7 +808,7 @@ void second_core() {
       _btn.Ay = 20;
       _raw.axUnfiltered = 0;
       _raw.ayUnfiltered = -125;
-      if (multishineSeq == 0 || multishineSeq == 8) {
+      if (multishineSeq == 0 || multishineSeq == 6) {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
