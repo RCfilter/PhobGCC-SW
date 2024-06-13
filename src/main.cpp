@@ -836,7 +836,7 @@ void second_core() {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
-      } else if (multishineSeq == (4)) {
+      } else if (multishineSeq == (3)) {
         tempBtn.Y = 1;
       } else {
         tempBtn.B = 0;
