@@ -777,13 +777,34 @@ void second_core() {
 
       // for multishine spam, we want to provide precisely the following inputs
       // at precisely these timings: NOTE: I have this setup for FALCO and
-      // timings are slightly different for FOX frame 1: Down+B frame 2: nothing
-      // (shine lag) frame 3: nothing (shine lag) frame 4: jump out of shine (Y)
+      // frame 1: Down+B 
+      // frame 2: nothing (shine lag)
+      // frame 3: nothing (shine lag) 
+      // frame 4: jump out of shine (Y)
       // frame 5: nothing (jumpsquat)
       // frame 6: nothing (jumpsquat)
       // frame 7: nothing (jumpsquat)
       // frame 8: nothing (jumpsquat)
       // frame 9: goto frame 1
+
+      // timings are slightly different for FOX 
+      // frame 1: Down+B 
+      // frame 2: nothing (shine lag)
+      // frame 3: nothing (shine lag) 
+      // frame 4: jump out of shine (Y)
+      // frame 5: nothing (jumpsquat)
+      // frame 6: nothing (jumpsquat)
+      // frame 7: goto frame 1
+
+      // on shield for FOX 
+      // frame 1: Shine / HL
+      // frame 2: Hitlag
+      // frame 3: Hitlag 
+      // frame 4: Hitlag
+      // frame 5: Inactionable
+      // frame 6: Inactionable
+      // frame 7: Jumpsquat
+      // frame 8: goto frame 1
 
       // TODO: address 32bit overflow after ~72 mins of controller runtime
       while (micros() - multishineTimer < MICROSECONDS_PER_FRAME) {
@@ -811,11 +832,11 @@ void second_core() {
       _btn.Ay = 20;
       _raw.axUnfiltered = 0;
       _raw.ayUnfiltered = -125;
-      if (multishineSeq == 0 || multishineSeq == (7)) {
+      if (multishineSeq == 0 || multishineSeq == (8)) {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
-      } else if (multishineSeq == (4)) {
+      } else if (multishineSeq == (6)) {
         tempBtn.Y = 1;
       } else {
         tempBtn.B = 0;
