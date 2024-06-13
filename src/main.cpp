@@ -770,6 +770,8 @@ void second_core() {
       running = true;
     }
 
+    bool isMultishineWhiff = true;
+
     if (multishine) {
       // this code is derived from `readSticks` and is focused more on _frames_
       // than the 1KHz polling rate of GCC adapters, which can of course
@@ -794,6 +796,12 @@ void second_core() {
       Buttons tempBtn;
       copyButtons(_hardware, tempBtn);
 
+      // toggle between 6-frame (whiff) and 7-frame (on-shield) multishine
+      if (tempBtn.Dl) {
+        isMultishineWhiff = !isMultishineWhiff
+        tempBtn.D1 = 0;
+      }
+
       // check that we're still multishining (any of them may still be down)
       const bool nowMultishining = tempBtn.Dr;
       if (!nowMultishining) {
@@ -808,7 +816,7 @@ void second_core() {
       _btn.Ay = 20;
       _raw.axUnfiltered = 0;
       _raw.ayUnfiltered = -125;
-      if (multishineSeq == 0 || multishineSeq == 6) {
+      if (multishineSeq == 0 || multishineSeq == (isMultishineWhiff ? 6 : 7)) {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
