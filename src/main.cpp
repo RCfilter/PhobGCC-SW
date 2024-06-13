@@ -788,22 +788,52 @@ void second_core() {
       // frame 9: goto frame 1
 
       // timings are slightly different for FOX 
-      // frame 1: Down+B 
-      // frame 2: nothing (shine lag)
-      // frame 3: nothing (shine lag) 
-      // frame 4: jump out of shine (Y)
-      // frame 5: nothing (jumpsquat)
-      // frame 6: nothing (jumpsquat)
-      // frame 7: goto frame 1
+      // frame 1: Shine
+      // frame 2: nothing 
+      // frame 3: nothing 
+      // frame 4: Jump
+      // frame 5: nothing
+      // frame 6: nothing
+      // frame 7: Shine
+      // frame 8: 317
+      // frame 9: 317
+      // frame 10: 318
+      // frame 11: 314
+      // frame 12: jump
 
       // on shield for FOX 
-      // frame 1: Shine / HL
-      // frame 2: Hitlag
-      // frame 3: Hitlag 
-      // frame 4: Hitlag
-      // frame 5: Inactionable
-      // frame 6: Inactionable
+      // frame 1: Shine / HL (313)
+      // frame 2: Hitlag 313
+      // frame 3: Hitlag 313
+      // frame 4: Hitlag 313
+      // frame 5: Inactionable 313
+      // frame 6: Inactionable 313
       // frame 7: Jumpsquat
+      // frame 8: Jumpsquat
+      // frame 9: Jumpsquat
+      // frame 10: Shine / HL (317)
+      // frame 11: 317
+      // frame 12: 317
+      // frame 13: 317
+      // frame 14: 317
+      // frame 15: 317
+      // frame 16: 318
+      // frame 17: 314
+      // frame 18: Jumpsquat
+      // Frame 19: Jumpsquat
+      // Frame 20: Jumpsquat
+      // Frame 21: Shine / HL (317)
+      // frame 22: 317
+      // frame 23: 317
+      // frame 24: 317
+      // frame 25: 317
+      // frame 26: 317
+      // frame 27: 318
+      // frame 28: 314
+      // frame 29: Jumpsquat
+      // Frame 30: Jumpsquat
+      // Frame 31: Jumpsquat
+
       // frame 8: goto frame 1
 
       // TODO: address 32bit overflow after ~72 mins of controller runtime
@@ -832,11 +862,11 @@ void second_core() {
       _btn.Ay = 20;
       _raw.axUnfiltered = 0;
       _raw.ayUnfiltered = -125;
-      if (multishineSeq == 0 || multishineSeq == (7)) {
+      if (multishineSeq == 0 || multishineSeq == (9)) {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
-      } else if (multishineSeq == (3)) {
+      } else if (multishineSeq == (6)) {
         tempBtn.Y = 1;
       } else {
         tempBtn.B = 0;
@@ -846,8 +876,8 @@ void second_core() {
       copyButtons(tempBtn, _btn);
 
       multishineSeq++;
-      if (multishineSeq > 12) {
-        multishineSeq = 3;
+      if (multishineSeq > 17) {
+        multishineSeq = 6;
       }
 
       continue;
