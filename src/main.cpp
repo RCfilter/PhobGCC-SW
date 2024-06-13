@@ -770,8 +770,6 @@ void second_core() {
       running = true;
     }
 
-    bool isMultishineWhiff = false;
-
     if (multishine) {
       // this code is derived from `readSticks` and is focused more on _frames_
       // than the 1KHz polling rate of GCC adapters, which can of course
