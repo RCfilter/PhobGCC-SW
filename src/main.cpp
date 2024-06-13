@@ -797,11 +797,8 @@ void second_core() {
       copyButtons(_hardware, tempBtn);
 
       // toggle between 6-frame (whiff) and 7-frame (on-shield) multishine
-      if (tempBtn.Dl) {
-        isMultishineWhiff = !isMultishineWhiff;
-        tempBtn.Dl = 0;
-      }
-
+      const bool isMultishineWhiff = tempBtn.Dl;
+      
       // check that we're still multishining (any of them may still be down)
       const bool nowMultishining = tempBtn.Dr;
       if (!nowMultishining) {
@@ -820,7 +817,7 @@ void second_core() {
         tempBtn.B = 1;
         // tempBtn.Ay = 0; // this seems to be up?
         // tempBtn.Ay = 255; // this seems to be up?
-      } else if (multishineSeq == 3) {
+      } else if (multishineSeq == (isMultishineWhiff ? 3 : 4)) {
         tempBtn.Y = 1;
       } else {
         tempBtn.B = 0;
