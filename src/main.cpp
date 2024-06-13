@@ -798,7 +798,7 @@ void second_core() {
 
       // toggle between 6-frame (whiff) and 7-frame (on-shield) multishine
       if (tempBtn.Dl) {
-        isMultishineWhiff = !isMultishineWhiff
+        isMultishineWhiff = !isMultishineWhiff;
         tempBtn.D1 = 0;
       }
 
