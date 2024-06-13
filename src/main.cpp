@@ -770,7 +770,7 @@ void second_core() {
       running = true;
     }
 
-    bool isMultishineWhiff = true;
+    bool isMultishineWhiff = false;
 
     if (multishine) {
       // this code is derived from `readSticks` and is focused more on _frames_
