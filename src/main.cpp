@@ -847,7 +847,7 @@ void second_core() {
 
       multishineSeq++;
       if (multishineSeq > 12) {
-        multishineSeq = 3;
+        multishineSeq = 6;
       }
 
       continue;
