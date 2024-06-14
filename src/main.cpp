@@ -19,6 +19,10 @@ static bool multishine = false;
 static uint8_t multishineSeq = 0;
 static uint32_t multishineTimer = 0;
 
+static bool multishine2 = false;
+static uint8_t multishineSeq2 = 0;
+static uint32_t multishineTimer2 = 0;
+
 // This gets called by the comms library
 GCReport __no_inline_not_in_flash_func(buttonsToGCReport)() {
   GCReport report = {.a = _btn.A,
@@ -882,6 +886,53 @@ void second_core() {
 
       continue;
     }
+    else if (multishine2) {
+
+      while (micros() - multishineTimer2 < MICROSECONDS_PER_FRAME) {
+      }
+      multishineTimer2 += MICROSECONDS_PER_FRAME;
+
+      readButtons(_pinList, _hardware);
+      Buttons tempBtn;
+      copyButtons(_hardware, tempBtn);
+
+      // toggle between 6-frame (whiff) and 7-frame (on-shield) multishine
+      // const bool isMultishineWhiff = tempBtn.Dl;
+      
+      // check that we're still multishining (any of them may still be down)
+      const bool nowMultishining2 = tempBtn.Dl;
+      if (!nowMultishining2) {
+        multishine2 = false;
+      } else {
+        // ensure that our multishine inputs are not triggered
+        tempBtn.Dr = 0;
+      }
+
+      // hold down
+      _btn.Ax = 127;
+      _btn.Ay = 20;
+      _raw.axUnfiltered = 0;
+      _raw.ayUnfiltered = -125;
+      if (multishineSeq2 == 0 || multishineSeq2 == (6)) {
+        tempBtn.B = 1;
+        // tempBtn.Ay = 0; // this seems to be up?
+        // tempBtn.Ay = 255; // this seems to be up?
+      } else if (multishineSeq2 == (3)) {
+        tempBtn.Y = 1;
+      } else {
+        tempBtn.B = 0;
+        tempBtn.Y = 0;
+      }
+
+      copyButtons(tempBtn, _btn);
+
+      multishineSeq2++;
+      if (multishineSeq2 > 12) {
+        multishineSeq2 = 3;
+      }
+
+      continue;
+    }
     // check to see if we are calibrating
     else if (_currentCalStep >= 0) {
       // Respond to inputs
@@ -953,7 +1004,8 @@ void second_core() {
                    _currentCalStep, running, tempCalPointsX, tempCalPointsY,
                    whichStick, notchStatus, notchAngles, measuredNotchAngles,
                    _aStickParams, _cStickParams, &multishine, &multishineSeq,
-                   &multishineTimer);
+                   &multishineTimer, &multishine2, &multishineSeq2,
+                   &multishineTimer2);
   }
 }
 

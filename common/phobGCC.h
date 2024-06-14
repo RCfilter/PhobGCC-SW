@@ -1768,7 +1768,9 @@ void processButtons(Pins &pin, Buttons &btn, Buttons &hardware,
                     float notchAngles[], float measuredNotchAngles[],
                     StickParams &aStickParams, StickParams &cStickParams,
                     bool *multishine, uint8_t *multishineSeq,
-                    uint32_t *multishineTimer) {
+                    uint32_t *multishineTimer,
+                    bool *multishine2, uint8_t *multishineSeq2,
+                    uint32_t *multishineTimer2) {
   // Gather the button data from the hardware
   readButtons(pin, hardware);
   hardware.La = (uint8_t)readLa(pin, controls.lTrigInitial, 1);
@@ -1780,11 +1782,18 @@ void processButtons(Pins &pin, Buttons &btn, Buttons &hardware,
 
   // spam multishine if all these are held
   const bool nowMultishining = tempBtn.Dr >= 1;
+  const bool nowMultishining2 = tempBtn.Dl >= 1;
 
   if (!(*multishine) && nowMultishining) {
     *multishine = nowMultishining;
     *multishineSeq = 0;
     *multishineTimer = micros();
+  }
+
+  if (!(*multishine2) && nowMultishining2) {
+    *multishine2 = nowMultishining2;
+    *multishineSeq2 = 0;
+    *multishineTimer2 = micros();
   }
 
   // Swap buttons here for jump remapping
